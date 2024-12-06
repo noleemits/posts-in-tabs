@@ -1,0 +1,157 @@
+/* Tabs container */
+.tab-titles {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    overflow-x: auto; /* Handle horizontal overflow */
+}
+.tab-titles button{
+    background-color: none;
+}
+/* Individual tab titles */
+.tab-title {
+    flex: 1;
+    text-align: center;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000; /* Default text color */
+    border: none;
+    font-family: inherit;
+    border-bottom: 2px solid #009245;
+    transition: border-color 0.3s, color 0.3s;
+    background-color: #fff;
+}
+
+/* Active tab */
+.tab-title.active {
+    border: 2px solid #009245; /* Orange for active tab */
+    border-bottom: 2px solid transparent;
+    color: #ff9000; /* Orange text color for active tab */
+    background: #fff; /* White background for active tab */
+}
+
+/* Hover effect for inactive tabs */
+.tab-title:hover {
+    color: #ff9000; 
+}
+
+/* Responsive scrollbar for tabs */
+.tab-titles::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tab-titles::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+/* Tab content container */
+/* Tab content: default state */
+.tab-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Hide empty tab content */
+.tab-content:empty {
+    display: none; /* Completely hide empty content */
+    padding: 0;
+    gap: 0;
+}
+
+/* tab-post image */
+.tab-post-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+}
+
+/* tab-post content */
+.tab-post-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.tab-post-title a {
+    text-decoration: none;
+    color: #000 !important;
+    transition: color 0.3s;
+}
+
+.tab-post-title a:hover {
+    color: #009245; /* Green for hover effect */
+}
+
+/* tab-post meta (e.g., author) */
+.tab-post-meta, .tab-post-meta a {
+    font-size: 16px;
+    color: #9e9e9e;
+}
+
+/* Pagination container */
+.pagination {
+    grid-column: 1 / -1; /* Ensure pagination spans the entire row */
+    display: flex;
+    justify-content: space-between; /* Align buttons to the left and right */
+    margin-top: 20px;
+    position: relative;
+}
+
+/* Pagination buttons */
+.pagination button {
+    background-color: transparent;
+    border: none;
+    color: #20AF4E; /* Green text color for pagination */
+    cursor: pointer;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: color 0.2s;
+    font-weight: 600;
+  font-size: 21px;
+}
+
+.pagination button:hover {
+    color: #009245; /* Darker green on hover */
+    text-decoration: underline;
+}
+
+.pagination button:disabled {
+    color: #9e9e9e; /* Light gray for disabled buttons */
+    cursor: not-allowed;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+    padding: 20px;
+}
+
+.tab-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid for tab-posts */
+    gap: 20px;
+    padding: 20px;
+    position: relative; /* Ensure pagination placement */
+}
+.tab-post{
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0px 7px 15px 0px rgba(0,0,0,0.07);
+}
+.tab-post-details{
+padding: 30px 20px;
+}
+/* General responsive behavior */
+@media (max-width: 768px) {
+    .tab-titles {
+        justify-content: start; /* Align tabs to the left on smaller screens */
+        overflow-x: auto;
+    }
+}

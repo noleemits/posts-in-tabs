@@ -1,0 +1,29 @@
+<?php
+// Enqueue CSS and JavaScript
+function sp_post_tabs_enqueue_assets() {
+    wp_enqueue_style(
+        'sp-post-tabs-css',
+        get_stylesheet_directory_uri() . '/post-tabs/assets/css/post-tabs.css',
+        [],
+        '1.0.0'
+    );
+
+    wp_enqueue_script(
+        'sp-post-tabs-js',
+        get_stylesheet_directory_uri() . '/post-tabs/assets/js/post-tabs.js',
+        ['jquery'], // Dependencies
+        '1.0.0',
+        true // Load in footer
+    );
+
+    // Localize script for AJAX
+    wp_localize_script('sp-post-tabs-js', 'sp_ajax', [
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce'    => wp_create_nonce('sp_nonce'),
+    ]);
+}
+add_action('wp_enqueue_scripts', 'sp_post_tabs_enqueue_assets');
+
+// Include other functionality
+require_once get_stylesheet_directory() . '/post-tabs/shortcode.php';
+require_once get_stylesheet_directory() . '/post-tabs/ajax.php';

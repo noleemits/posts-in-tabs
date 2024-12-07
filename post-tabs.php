@@ -9,18 +9,20 @@ function sp_post_tabs_enqueue_assets() {
     );
 
     wp_enqueue_script(
-        'sp-post-tabs-js',
+        'post-tabs-js',
         get_stylesheet_directory_uri() . '/post-tabs/assets/js/post-tabs.js',
-        ['jquery'], // Dependencies
+        ['jquery'],
         '1.0.0',
-        true // Load in footer
+        true
     );
 
-    // Localize script for AJAX
-    wp_localize_script('sp-post-tabs-js', 'sp_ajax', [
+    wp_localize_script('post-tabs-js', 'sp_ajax', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('sp_nonce'),
     ]);
+
+    // Debug: Print sp_ajax in the console
+    wp_add_inline_script('post-tabs-js', 'console.log("sp_ajax:", sp_ajax);');
 }
 add_action('wp_enqueue_scripts', 'sp_post_tabs_enqueue_assets');
 

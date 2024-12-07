@@ -1,16 +1,17 @@
 <?php
+
 // Debugging: Ensure $post is available
-if (!isset($post)) {
-    error_log('The $post global is not set.');
-    return;
+if (!isset($GLOBALS['post'])) {
+    error_log('The $post global is not set in the tab-content template.');
+} else {
+    error_log('The $post global is set: ' . $GLOBALS['post']->ID);
 }
 
-error_log('Template executed for post: ' . get_the_title());
 ?>
 <div class="tab-post">
     <a href="<?php echo esc_url(get_permalink()); ?>">
         <?php if (has_post_thumbnail()) : ?>
-            <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'medium')); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
+            <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'medium')); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
         <?php endif; ?>
     </a>
     <div class="tab-post-details">

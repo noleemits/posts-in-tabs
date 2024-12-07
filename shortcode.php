@@ -1,8 +1,5 @@
 <?php
 
-require_once get_stylesheet_directory() . '/post-tabs/helpers.php';
-
-
 function sp_post_tabs_shortcode($atts) {
     // Define shortcode attributes
     $atts = shortcode_atts([
@@ -24,24 +21,36 @@ function sp_post_tabs_shortcode($atts) {
     foreach ($titles as $index => $title) {
         $active_class = $index === 0 ? 'active' : '';
         $aria_selected = $index === 0 ? 'true' : 'false';
-        $output .= "<button class='tab-title $active_class' data-tab='tab-$index' data-slug='" . esc_attr($slugs[$index]) . "' data-posts-per-page='" . intval($atts['posts_per_tab']) . "' role='tab' aria-selected='$aria_selected'>" . esc_html($title) . "</button>";
+        $output .= "<button 
+            class='tab-title $active_class' 
+            data-tab='tab-$index' 
+            data-slug='" . esc_attr($slugs[$index]) . "' 
+            data-posts-per-page='" . intval($atts['posts_per_tab']) . "' 
+            role='tab' 
+            aria-selected='$aria_selected'>" . esc_html($title) . "</button>";
     }
-    $output .= '</div>';
+
+    $output .= '</div>'; // Close tab-titles
 
     $output .= '<div class="tab-contents">';
     foreach ($slugs as $index => $slug) {
         $active_class = $index === 0 ? 'active' : '';
-        $output .= "<div class='tab-content $active_class' id='tab-$index' data-paged='1'>";
+        $output .= "<div class='tab-content $active_class' id='tab-$index'>";
 
+        // Fetch posts for the first tab
         if ($index === 0 && !empty($slug)) {
-            $query_args = sp_get_tab_query_args($slug, $atts['posts_per_tab'], 1);
+            $query_args = [
+                'category_name'  => sanitize_text_field($slug),
+                'posts_per_page' => intval($atts['posts_per_tab']),
+                'post_status'    => 'publish',
+            ];
             $query = new WP_Query($query_args);
 
             if ($query->have_posts()) {
                 ob_start();
                 while ($query->have_posts()) {
-                    $query->the_post(); // IMPORTANT: Sets the $post global
-                    include get_stylesheet_directory() . '/post-tabs/templates/tab-content.php';
+                    $query->the_post();
+                    include get_stylesheet_directory() . '/post-tabs/templates/tab-content.php'; // Use template
                 }
                 $output .= ob_get_clean();
             } else {
@@ -50,11 +59,10 @@ function sp_post_tabs_shortcode($atts) {
             wp_reset_postdata();
         }
 
-
-        $output .= '</div>';
+        $output .= '</div>'; // Close tab-content
     }
-    $output .= '</div>';
-    $output .= '</div>';
+    $output .= '</div>'; // Close tab-contents
+    $output .= '</div>'; // Close tabs
 
     return $output;
 }

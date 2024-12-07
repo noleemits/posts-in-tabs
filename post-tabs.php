@@ -20,9 +20,6 @@ function sp_post_tabs_enqueue_assets() {
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce'    => wp_create_nonce('sp_nonce'),
     ]);
-
-    // Debug: Print sp_ajax in the console
-    wp_add_inline_script('post-tabs-js', 'console.log("sp_ajax:", sp_ajax);');
 }
 add_action('wp_enqueue_scripts', 'sp_post_tabs_enqueue_assets');
 

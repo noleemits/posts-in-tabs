@@ -12,13 +12,13 @@
 .tab-title {
     flex: 1;
     text-align: center;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
+    padding: 10px ;
+    cursor: pointer;    
+    font-size: clamp(0.8125rem, 0.7273rem + 0.4545vw, 1.125rem);
     font-weight: bold;
-    color: #000; /* Default text color */
+    color: #5c727d; 
     border: none;
-    font-family: inherit;
+    font-family: 'Poppins',Helvetica,Arial,Lucida,sans-serif;
     border-bottom: 2px solid #009245;
     transition: border-color 0.3s, color 0.3s;
     background-color: #fff;
@@ -48,12 +48,11 @@
 }
 
 /* Tab content container */
-/* Tab content: default state */
 .tab-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important; 
     gap: 20px;
-    padding: 20px;
+    padding: 10px;
 }
 
 /* Hide empty tab content */
@@ -154,4 +153,16 @@ padding: 30px 20px;
         justify-content: start; /* Align tabs to the left on smaller screens */
         overflow-x: auto;
     }
+    .tab-content, .pagination {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+}
+
+.pagination button.disabled {
+    color: #ccc; /* Light gray */
+    cursor: not-allowed; /* Indicate the button is disabled */
+    text-decoration: none;
+    pointer-events: none; /* Prevent any click interaction */
 }
